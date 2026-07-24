@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import { 
@@ -37,7 +38,7 @@ const TourPackages = ({ isSection = false }) => {
     const fetchPackages = async () => {
       setLoading(true);
       try {
-        let url = 'http://127.0.0.1:5000/api/packages';
+        let url = `${API_BASE_URL}/api/packages`;
         if (!isSection && activeCategory !== 'All') {
           url += `?type=${activeCategory}`;
         }

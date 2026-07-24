@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Star, Users, Fuel, Zap, ArrowRight, ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { API_BASE_URL } from '../../config/api';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -100,7 +101,7 @@ const FeaturedFleet = () => {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:5000/api/vehicles?availability=true&sort=ratingDesc');
+        const res = await fetch(`${API_BASE_URL}/api/vehicles?availability=true&sort=ratingDesc`);
         const data = await res.json();
         if (data.status === 'success') {
           setVehicles(data.data.slice(0, 8)); // Top 8 vehicles

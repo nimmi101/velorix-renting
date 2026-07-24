@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
@@ -157,7 +158,7 @@ const Fleet = ({ isSection = false }) => {
         if (selectedFuel) queryParams.append('fuel', selectedFuel);
         if (sortBy) queryParams.append('sort', sortBy);
 
-        const res = await fetch(`http://127.0.0.1:5000/api/vehicles?${queryParams.toString()}`);
+        const res = await fetch(`${API_BASE_URL}/api/vehicles?${queryParams.toString()}`);
         const data = await res.json();
         
         if (data.status === 'success') {

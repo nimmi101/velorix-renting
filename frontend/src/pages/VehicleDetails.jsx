@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import { 
@@ -86,13 +87,13 @@ const VehicleDetails = () => {
     const fetchVehicleData = async () => {
       setLoading(true);
       try {
-        const vehicleRes = await fetch(`http://127.0.0.1:5000/api/vehicles/${id}`);
+        const vehicleRes = await fetch(`${API_BASE_URL}/api/vehicles/${id}`);
         const vehicleData = await vehicleRes.json();
         if (vehicleRes.ok && vehicleData.status === 'success') {
           setVehicle(vehicleData.data);
         }
 
-        const reviewsRes = await fetch(`http://127.0.0.1:5000/api/reviews/vehicle/${id}`);
+        const reviewsRes = await fetch(`${API_BASE_URL}/api/reviews/vehicle/${id}`);
         const reviewsData = await reviewsRes.json();
         if (reviewsRes.ok && reviewsData.status === 'success') {
           setReviews(reviewsData.data);
@@ -214,7 +215,7 @@ const VehicleDetails = () => {
     setSubmitReviewLoading(true);
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/api/reviews', {
+      const res = await fetch(`${API_BASE_URL}/api/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -233,7 +234,7 @@ const VehicleDetails = () => {
         setReviewComment('');
         setReviewRating(5);
         // Refresh rating average
-        const refreshedRes = await fetch(`http://127.0.0.1:5000/api/vehicles/${id}`);
+        const refreshedRes = await fetch(`${API_BASE_URL}/api/vehicles/${id}`);
         const refreshedData = await refreshedRes.json();
         if (refreshedRes.ok && refreshedData.status === 'success') {
           setVehicle(refreshedData.data);

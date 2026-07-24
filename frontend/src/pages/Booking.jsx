@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import { 
@@ -148,7 +149,7 @@ const Booking = () => {
     };
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/api/bookings', {
+      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

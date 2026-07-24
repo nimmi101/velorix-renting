@@ -3,6 +3,7 @@ import { CheckCircle, X, Loader2, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from './AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 const CustomCarSelect = ({ value, onChange, options }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -171,7 +172,7 @@ const CustomTimePicker = ({ hour, minute, amPm, onChangeHour, onChangeMinute, on
   );
 };
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000';
+const API_BASE = API_BASE_URL;
 
 const SearchBar = () => {
   const { user } = useAuth();

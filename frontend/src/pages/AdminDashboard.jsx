@@ -30,9 +30,10 @@ import {
   ArrowDown
 } from 'lucide-react';
 import PageSEO from '../components/PageSEO';
+import { API_BASE_URL } from '../config/api';
 
 /* ---- Status badge helper ---- */
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000';
+const API_BASE = API_BASE_URL;
 
 const StatusBadge = ({ status }) => {
   const map = {
@@ -487,9 +488,9 @@ const AdminDashboard = () => {
     try {
       const headers = { Authorization: `Bearer ${user.token}` };
       const [vRes, bRes, uRes] = await Promise.all([
-        fetch('http://127.0.0.1:5000/api/vehicles', { headers }),
-        fetch('http://127.0.0.1:5000/api/bookings', { headers }),
-        fetch('http://127.0.0.1:5000/api/users', { headers })
+        fetch(`${API_BASE_URL}/api/vehicles`, { headers }),
+        fetch(`${API_BASE_URL}/api/bookings`, { headers }),
+        fetch(`${API_BASE_URL}/api/users`, { headers })
       ]);
       const [vData, bData, uData] = await Promise.all([vRes.json(), bRes.json(), uRes.json()]);
       if (vData.status === 'success') setVehicles(vData.data);
@@ -506,7 +507,7 @@ const AdminDashboard = () => {
   const handleDeleteVehicle = async (id) => {
     if (!window.confirm('Delete this vehicle permanently?')) return;
     try {
-      await fetch(`http://127.0.0.1:5000/api/vehicles/${id}`, {
+      await fetch(`${API_BASE_URL}/api/vehicles/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` }
       });
@@ -526,7 +527,8 @@ const AdminDashboard = () => {
   const handleStatusUpdate = async (bookingId, newStatus) => {
     setUpdatingStatus(bookingId);
     try {
-      const res = await fetch(`http://127.0.0.1:5000/api/bookings/${bookingId}/status`, {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}/status`, {
+
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
         body: JSON.stringify({ status: newStatus })

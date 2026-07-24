@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import {
@@ -58,7 +59,7 @@ const UserDashboard = () => {
 
     const fetchBookings = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:5000/api/bookings/my', {
+        const res = await fetch(`${API_BASE_URL}/api/bookings/my`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         const data = await res.json();
@@ -78,7 +79,8 @@ const UserDashboard = () => {
     e.preventDefault();
     setProfileSaving(true);
     try {
-      const res = await fetch('http://127.0.0.1:5000/api/auth/profile', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
+
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
